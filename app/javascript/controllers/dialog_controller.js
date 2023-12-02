@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { enter, leave } from 'el-transition';
 
 export default class extends Controller {
@@ -14,6 +15,7 @@ export default class extends Controller {
   show() {
     enter(this.backdropTarget);
     enter(this.panelTarget);
+    disableBodyScroll(this.element);
   }
 
   hide_on_success(event) {
@@ -27,6 +29,7 @@ export default class extends Controller {
       leave(this.backdropTarget),
       leave(this.panelTarget)
     ]).then(() => {
+      enableBodyScroll(this.element);
       this.element.remove();
     });
   }

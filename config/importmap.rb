@@ -7,3 +7,4 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@hotwired/turbo", to: "https://ga.jspm.io/npm:@hotwired/turbo@8.0.0-beta.1/dist/turbo.es2017-esm.js"
 pin "el-transition", to: "https://ga.jspm.io/npm:el-transition@0.0.7/index.js"
+pin "body-scroll-lock", to: "https://ga.jspm.io/npm:body-scroll-lock@4.0.0-beta.0/lib/bodyScrollLock.esm.js"
