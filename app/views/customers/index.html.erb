@@ -1,0 +1,61 @@
+<%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+<%= turbo_stream_from :customers_list %>
+
+<div class="container mx-auto py-24">
+  <div class="flex justify-between items-center mb-2">
+    <h1 class="text-xl font-bold">Kunden (<%= @customers.size %>)</h1>
+
+    <%= button_to "Neuer Kunde",
+          new_customer_path,
+          class: "inline-flex w-full justify-center rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 sm:w-auto cursor-pointer",
+          method: :get,
+          form: { data: { turbo_frame: :dialog } }
+    %>
+  </div>
+
+  <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">?</th>
+          <th scope="col" class="px-6 py-3">?</th>
+          <th scope="col" class="px-6 py-3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-white border-b hidden only:table-row">
+          <td colspan="4" class="px-6 py-4 text-center">Es gibt noch keine Kunden</td>
+        </tr>
+
+        <% @customers.each do |customer| %>
+          <tr class="bg-white border-b">
+            <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap">
+              <div class="text-base font-semibold"><%= customer.name %></div>
+              <div class="font-normal text-gray-500"><%= customer.description %></div>
+            </th>
+            <td class="px-6 py-4">?</td>
+            <td class="px-6 py-4">?</td>
+            <td class="px-6 py-4">
+              <div class="flex gap-2">
+                <%= button_to "Bearbeiten",
+                      edit_customer_path(customer),
+                      class: "font-medium text-blue-600 hover:underline",
+                      method: :get,
+                      form: { data: { turbo_frame: :dialog } }
+                %>
+
+                <%= button_to "Entfernen",
+                      customer_path(customer),
+                      class: "font-medium text-red-600 hover:underline",
+                      data: { turbo_confirm: 'Wollen Sie den Kunden wirklich löschen?' },
+                      method: :delete
+                %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
